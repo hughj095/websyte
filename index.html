@@ -39,11 +39,25 @@
     <p>Click the button to see a message!</p>
     <button onclick="showMessage()">Click Me</button>
     <p id="message"></p>
-
-    <script>
-        function showMessage() {
-            document.getElementById("message").innerText = "Hello from JavaScript!";
-        }
-    </script>
+<script>
+    function sendTimestamp() {
+      const timestamp = new Date().toISOString(); // Get the current timestamp
+      
+      fetch('/post_timestamp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ timestamp })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    }
+  </script>
 </body>
 </html>
